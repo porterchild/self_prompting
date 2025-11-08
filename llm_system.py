@@ -112,7 +112,7 @@ def supervisor_improve_prompt(client, current_prompt, accuracy, prompt_history):
         
         Suggest an improved version of the prompt to increase accuracy. Consider the weaknesses of LLMs when crafting an improved prompt. **Do not repeat any previous prompt.** Keep trying new things, beyond just small iterations; formulate hypotheses and run experiments to validate or invalidate them. Even if there is a pattern in your previous attempts, never mindlessly continue the pattern at the expense of trying a new hypothesis.
 
-        The new prompt must be general and generic, without any specific hints, details, or references to the question, answer, or scenario. First reason about the results you've achieved so far, and then plan the next experiment you will perform. Then end your response with NEW PROMPT: <your new prompt>
+        The new prompt must be general and generic, without any specific hints, details, or references to the question, answer, or scenario. First reason about the results you've achieved so far, and then plan the next experiment you will perform. Then end your response with **NEW PROMPT**: <your new prompt>
     """).strip()
 
     print('imporve prompt', improve_prompt)
@@ -122,8 +122,8 @@ def supervisor_improve_prompt(client, current_prompt, accuracy, prompt_history):
     full_response = response.choices[0].message.content.strip()
     print(f"  Supervisor reasoning: {YELLOW}{full_response}{RESET}")
     
-    # Extract the new prompt after "NEW PROMPT: " (case-sensitive)
-    match = re.search(r'NEW PROMPT:\s*(.*)', full_response, re.DOTALL)
+    # Extract the new prompt after "**NEW PROMPT**:"
+    match = re.search(r'\*\*NEW PROMPT\*\*:\s*(.*)', full_response, re.DOTALL)
     new_prompt = match.group(1).strip() if match else full_response.strip()
     print(f"  Improved Prompt: {YELLOW}{new_prompt}{RESET}")
     return new_prompt
