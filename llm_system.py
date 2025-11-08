@@ -100,7 +100,7 @@ def supervisor_improve_prompt(client, current_prompt, accuracy, prompt_history):
     """
     history_str = ""
     for idx, (past_prompt, past_acc) in enumerate(prompt_history, 1):
-        history_str += f"{idx}. Prompt: '{past_prompt}' \nPrompt Accuracy: {past_acc * 100:.1f}%\n"
+        history_str += f"{idx}. Prompt: '{past_prompt}' \n\nEnd of Prompt {idx}. Accuracy: {past_acc * 100:.1f}%\n"
 
     improve_prompt = textwrap.dedent(f"""
         You are improving a prompt for an LLM to answer a question accurately.
@@ -108,7 +108,7 @@ def supervisor_improve_prompt(client, current_prompt, accuracy, prompt_history):
         Current prompt: '{current_prompt}'
 
         History of past prompts and their accuracies:
-        {history_str}
+{history_str}
         
         Suggest an improved version of the prompt to increase accuracy. Consider the weaknesses of LLMs when crafting an improved prompt. **Do not repeat any previous prompt.** Keep trying new things, beyond just small iterations; formulate hypotheses and run experiments to validate or invalidate them. Even if there is a pattern in your previous attempts, never mindlessly continue the pattern at the expense of trying a new hypothesis.
 
